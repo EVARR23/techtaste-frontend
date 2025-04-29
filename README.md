@@ -1,16 +1,14 @@
-# flutter_techtaste
+![image](https://github.com/user-attachments/assets/d9a25d17-19a0-4602-b994-f01bf42ec651)
 
-A new Flutter project.
+<p align="center">
+  <a href="https://exemplo.com">  Sobre |Backlogs |Tecnologias |Equipe 
+</a> 
+</p>
 
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+<p align="center">
+  <a href="https://seu-link-aqui.com">
+ O objetivo é desenvolver um aplicativo web techtaste para conectar restaurantes e pessoas interessadas em compra alimento.
+    A aplicação deverá apenas fazer a intermediação para gerenciar a sacola, com método de adicionar, remover, limpa itens e efetuar pagamenta.
+    Modelar os pratos e integrá-los aos restaurantes e á sacola.
+</p>
+           
