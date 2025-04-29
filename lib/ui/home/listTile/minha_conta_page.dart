@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:text_form_field_wrapper/text_form_field_wrapper.dart';
+import '../../../service/post_candidato.dart';
 
 
 
@@ -11,13 +12,64 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  // Controladores para os campos de texto
+  final TextEditingController nomeController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController telefoneController = TextEditingController();
+  final TextEditingController cpfController = TextEditingController();
+  final TextEditingController dataDeNascimentoController = TextEditingController();
+
+  // Substitua estas variáveis pelos seus serviços reais
+  final candidatoService = CandidatoService();
+  
+
+  // Método para salvar os dados
+  Future<void> salvarDados() async {
+    final dadosCandidato = {
+      'nome': nomeController.text,
+      'email': emailController.text,
+      'telefone': telefoneController.text,
+      'cpf': cpfController.text,
+      //'dataDeNascimento': dataDeNascimentoController.text,
+    };
+
+    try {
+      print("Enviando dados para CandidatoService: $dadosCandidato");
+      await candidatoService.enviarPost(dadosCandidato);
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Perfil salvo com sucesso!')),
+      );
+
+      // Limpar os campos após salvar
+      nomeController.clear();
+      emailController.clear();
+      telefoneController.clear();
+      cpfController.clear();
+      dataDeNascimentoController.clear();
+      setState(() {
+        // Atualize os estados necessários
+      });
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Erro ao salvar dados: $e')),
+      );
+    }
+  }
+
+  @override
+  void dispose() {
+    // Dispose dos controladores para liberar recursos
+    nomeController.dispose();
+    emailController.dispose();
+    telefoneController.dispose();
+    cpfController.dispose();
+    dataDeNascimentoController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
-    TextFormField formField = TextFormField(
-      initialValue: '',
-      decoration: const InputDecoration(border: InputBorder.none),
-    );
-
     return Scaffold(
       appBar: AppBar(
         title: const Text('Dados Pessoais'),
@@ -27,109 +79,94 @@ class _MyHomePageState extends State<MyHomePage> {
           child: SingleChildScrollView(
             child: Container(
               constraints: const BoxConstraints(maxWidth: 600),
-              padding: const EdgeInsets.symmetric(
-                horizontal: 16,
-              ),
+              padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                // mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  // spacer
                   const SizedBox(height: 20),
 
-                  // Example of TextFormFieldWrapper with position 'alone'
                   const Padding(
-                    padding:
-                        EdgeInsets.symmetric(horizontal: 12.0, vertical: 4.0),
+                    padding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 4.0),
                     child: Text('Nome'),
                   ),
                   TextFormFieldWrapper(
-                    formField: formField,
+                    formField: TextFormField(
+                      controller: nomeController,
+                      decoration: const InputDecoration(border: InputBorder.none),
+                      style: const TextStyle(color: Colors.black), 
+                    ),
                     position: TextFormFieldPosition.alone,
                   ),
 
-                  // spacer
                   const SizedBox(height: 20),
 
-                  // Example of TextFormFieldWrapper with position 'alone'
-                  // and with a prefix Widget
                   const Padding(
-                    padding:
-                        EdgeInsets.symmetric(horizontal: 12.0, vertical: 4.0),
+                    padding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 4.0),
                     child: Text('E-mail'),
                   ),
                   TextFormFieldWrapper(
-                    formField: formField,
+                    formField: TextFormField(
+                      controller: emailController,
+                      decoration: const InputDecoration(border: InputBorder.none),
+                      style: const TextStyle(color: Colors.black), 
+
+                    ),
                     position: TextFormFieldPosition.alone,
-                    
                   ),
 
-                  // spacer
                   const SizedBox(height: 20),
 
-                  // Example of TextFormFieldWrapper with position 'alone'
-                  // and with a suffix Widget
                   const Padding(
-                    padding:
-                        EdgeInsets.symmetric(horizontal: 12.0, vertical: 4.0),
+                    padding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 4.0),
                     child: Text('Telefone'),
                   ),
                   TextFormFieldWrapper(
-                    formField: formField,
+                    formField: TextFormField(
+                      controller: telefoneController,
+                      decoration: const InputDecoration(border: InputBorder.none),
+                      style: const TextStyle(color: Colors.black), 
+                    ),
                     position: TextFormFieldPosition.alone,
-                    suffix: const Text('Suffix'),
                   ),
 
-                  // spacer
                   const SizedBox(height: 20),
 
-                  // Example of TextFormFieldWrapper with position 'alone'
-                  // and with a prefix Widget and suffix
                   const Padding(
-                    padding:
-                        EdgeInsets.symmetric(horizontal: 12.0, vertical: 4.0),
+                    padding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 4.0),
                     child: Text('CPF'),
                   ),
+              //  TextFormFieldWrapper(
+              //       formField: TextFormField(
+              //         controller: cpfController,
+              //         decoration: const InputDecoration(border: InputBorder.none),
+              //       ),
+              //       position: TextFormFieldPosition.alone,
+              //     ),
+
+              //     const SizedBox(height: 20),
+
+              //     const Padding(
+              //       padding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 4.0),
+              //       child: Text('Data de nascimento'),
+              //     ),
                   TextFormFieldWrapper(
-                    formField: formField,
+                    formField: TextFormField(
+                      controller: cpfController,
+                      decoration: const InputDecoration(border: InputBorder.none),
+                      style: const TextStyle(color: Colors.black), 
+                    ),
                     position: TextFormFieldPosition.alone,
-                    prefix: const Text('Prefix'),
-                    suffix: const Text('Suffix'),
                   ),
 
- 
                   const SizedBox(height: 20),
 
-                 
-                  const Padding(
-                    padding:
-                        EdgeInsets.symmetric(horizontal: 12.0, vertical: 4.0),
-                    child: Text('Data de nascimento'),
+                  Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: ElevatedButton(
+                      onPressed: salvarDados,
+                      child: const Text('Cadastrado'),
+                    ),
                   ),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: TextFormFieldWrapper(
-                          formField: formField,
-                          position: TextFormFieldPosition.left,
-                        ),
-                      ),
-                      Expanded(
-                        child: TextFormFieldWrapper(
-                          formField: formField,
-                          position: TextFormFieldPosition.right,
-                        ),
-                      ),
-                    ],
-                  ),
-                 Padding(
-                  padding: const EdgeInsets.all(16.0), // espaçamento em todos os lados
-                  child: ElevatedButton(
-                    onPressed: () {},
-                    child: const Text('cadastrado'),
-                  ),
-                )
-
                 ],
               ),
             ),
@@ -137,5 +174,18 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
     );
+  }
+}
+
+// Classes fictícias para representar os serviços
+class ProfileService {
+  Future<void> dadosCandidato(Map<String, String> dados) async {
+    // Implemente a lógica para enviar os dados do candidato
+  }
+}
+
+class IntencoesService {
+  Future<void> intecoesPost(Map<String, String> dados) async {
+    // Implemente a lógica para enviar as intenções
   }
 }
