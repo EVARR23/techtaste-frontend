@@ -4,6 +4,7 @@ import '../../../service/post_candidato.dart';
 
 
 
+
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key}) : super(key: key);
 
@@ -30,7 +31,7 @@ class _MyHomePageState extends State<MyHomePage> {
       'email': emailController.text,
       'telefone': telefoneController.text,
       'cpf': cpfController.text,
-      //'dataDeNascimento': dataDeNascimentoController.text,
+      'dataDeNascimento': dataDeNascimentoController.text,
     };
 
     try {
@@ -135,23 +136,24 @@ class _MyHomePageState extends State<MyHomePage> {
                     padding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 4.0),
                     child: Text('CPF'),
                   ),
-              //  TextFormFieldWrapper(
-              //       formField: TextFormField(
-              //         controller: cpfController,
-              //         decoration: const InputDecoration(border: InputBorder.none),
-              //       ),
-              //       position: TextFormFieldPosition.alone,
-              //     ),
-
-              //     const SizedBox(height: 20),
-
-              //     const Padding(
-              //       padding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 4.0),
-              //       child: Text('Data de nascimento'),
-              //     ),
-                  TextFormFieldWrapper(
+               TextFormFieldWrapper(
                     formField: TextFormField(
                       controller: cpfController,
+                      decoration: const InputDecoration(border: InputBorder.none),
+                      style: const TextStyle(color: Colors.black), 
+                    ),
+                    position: TextFormFieldPosition.alone,
+                  ),
+
+                  const SizedBox(height: 20),
+
+                  const Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 4.0),
+                    child: Text('Data de nascimento'),
+                  ),
+                  TextFormFieldWrapper(
+                    formField: TextFormField(
+                      controller: dataDeNascimentoController,
                       decoration: const InputDecoration(border: InputBorder.none),
                       style: const TextStyle(color: Colors.black), 
                     ),
@@ -177,15 +179,8 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 }
 
-// Classes fictícias para representar os serviços
-class ProfileService {
-  Future<void> dadosCandidato(Map<String, String> dados) async {
-    // Implemente a lógica para enviar os dados do candidato
-  }
-}
 
-class IntencoesService {
-  Future<void> intecoesPost(Map<String, String> dados) async {
-    // Implemente a lógica para enviar as intenções
-  }
-}
+
+
+
+
