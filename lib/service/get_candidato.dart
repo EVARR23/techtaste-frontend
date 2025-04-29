@@ -1,25 +1,20 @@
-import 'dart:convert';
+// ignore_for_file: avoid_print
 import 'package:http/http.dart' as http;
 
-class CandidatoService {
-  Future<dynamic> fetchCandidato() async {
-    final response = await http.get(
-      Uri.parse('http://192.168.0.100:8080/api/cadastro'), // Substitua pela URL correta do seu backend
-      headers: <String, String>{
-        'Accept': 'application/json',
-      },
-    );
-
+Future<dynamic> getCadastros() async {
+  try {
+    final response = await http.get(Uri.parse('http://192.168.0.100:8080/api/cadastro'));
     if (response.statusCode == 200) {
-      // Decodifica a resposta JSON
-      return jsonDecode(response.body);
+      print(response.body); 
+      return response.body;
     } else {
-      // Lança uma exceção com o corpo da resposta em caso de erro
-      throw Exception('Erro ao carregar candidato: ${response.body}');
+      throw Exception('Erro ao buscar dados');
     }
+  } catch (error) {
+    print(error);
+    return null;
   }
 }
-
 
 
 
